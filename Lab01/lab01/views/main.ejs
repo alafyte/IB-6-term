@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab01</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <h3 class="text-center mt-4">Литовский алфавит</h3>
+    <p>Всего символов: <%= lithuanian.symbolsCount %></p>
+    <p>Энтропия литовского алфавита: <%= lithuanian.entropy %> бит</p>
+
+    <h3 class="text-center mt-4">Македонский алфавит</h3>
+    <p>Всего символов: <%= macedonian.symbolsCount %></p>
+    <p>Энтропия македонского алфавита: <%= macedonian.entropy %> бит</p>
+
+    <h3 class="text-center mt-4">Бинарный алфавит</h3>
+    <p>Всего символов: <%= binary.symbolsCount %></p>
+    <p>Энтропия бинарного алфавита: <%= binary.entropy %> бит</p>
+
+    <hr/>
+    <h3 class="text-center mt-4">Количество информации</h3>
+    <p>В строке на литовском (Ivanovas Ivanas Ivanovičius): <%= informationCountLithuanian %></p>
+    <p>В строке на македонском (Иванов Иван Иванович): <%= informationCountMacedonian %></p>
+    <p>В бинарной строке: <%= informationCountBinary %></p>
+
+    <h3 class="text-center mt-4">p = 0.1</h3>
+    <p>Эффективная энтропия: <%= entropyWithError.effectiveEntropyCase1%></p>
+    <p>Количество информации: <%= entropyWithError.informationCountCase1%></p>
+
+    <h3 class="text-center mt-4">p = 0.5</h3>
+    <p>Эффективная энтропия: <%= entropyWithError.effectiveEntropyCase2%></p>
+    <p>Количество информации: <%= entropyWithError.informationCountCase2%></p>
+
+    <h3 class="text-center mt-4">p = 1</h3>
+    <p>Эффективная энтропия: <%= entropyWithError.effectiveEntropyCase3%></p>
+    <p>Количество информации: <%= entropyWithError.informationCountCase3%></p>
+</div>
+</body>
+</html>
