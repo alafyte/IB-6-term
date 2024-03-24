@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab02</title>
+    <meta charset="utf-8"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <ul class="nav justify-content-center mt-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="/">Base64</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/entropy">Энтропия и избыточность</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/xor">XOR</a>
+        </li>
+    </ul>
+
+    <h3 class="text-center mt-4">XOR ASCII</h3>
+    <div class="d-flex flex-row justify-content-between">
+        <div>
+            <p><%= xorASCII.string_a %> ^ <%= xorASCII.string_b %> = <%= xorASCII.result %></p>
+            <div class="border-bottom d-flex flex-column">
+                <span> <%= xorASCII.a_binary %></span>
+                <span> <%= xorASCII.b_binary %></span>
+            </div>
+            <span> <%= xorASCII.result_binary %></span>
+        </div>
+        <div>
+            <p><%= xorASCII.string_a %> ^ <%= xorASCII.string_b %> ^ <%= xorASCII.string_b %> = <%= xorASCII.result_xor_b %></p>
+            <div class="border-bottom d-flex flex-column">
+                <span> <%= xorASCII.a_binary %></span>
+                <span> <%= xorASCII.b_binary %></span>
+                <span> <%= xorASCII.b_binary %></span>
+            </div>
+            <span> <%= xorASCII.result_xor_b_binary %></span>
+        </div>
+    </div>
+    <h3 class="text-center mt-4 mb-4">XOR Base64</h3>
+    <div class="d-flex flex-row justify-content-between">
+        <div>
+            <p><%= xorBase64.string_a %> ^ <%= xorBase64.string_b %> equals <%= xorBase64.result %></p>
+            <div class="border-bottom d-flex flex-column">
+                <span> <%= xorBase64.a_binary %></span>
+                <span> <%= xorBase64.b_binary %></span>
+            </div>
+            <span> <%= xorBase64.result_binary %></span>
+        </div>
+        <div>
+            <p><%= xorBase64.string_a %> ^ <%= xorBase64.string_b %> ^ <%= xorBase64.string_b %> equals <%= xorBase64.result_xor_b %></p>
+            <div class="border-bottom d-flex flex-column">
+                <span> <%= xorBase64.a_binary %></span>
+                <span> <%= xorBase64.b_binary %></span>
+                <span> <%= xorBase64.b_binary %></span>
+            </div>
+            <span> <%= xorBase64.result_xor_b_binary %></span>
+        </div>
+    </div>
+</div>
+</body>
+</html>
