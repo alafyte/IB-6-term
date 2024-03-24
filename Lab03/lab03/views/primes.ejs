@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab03 - Простые числа</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <ul class="nav justify-content-center mt-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="/gcd">НОД</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/primes">Простые числа</a>
+        </li>
+    </ul>
+
+    <h3 class="text-center mt-4">Простые числа</h3>
+    <p>Простые числа от 2 до <%= n %>: </p>
+    <p><%= primesFrom2to591 %> </p>
+    <p>Предполагаемое количество простых чисел (n / ln(n)): <%= numberOfPrimes %>,
+    реальное количество простых чисел: <%= resultNumberOfPrimes %></p>
+    <hr />
+    <p>Простые числа от <%= m %> до <%= n %>: </p>
+    <p><%= primesFrom555to591 %> </p>
+    <hr/>
+    <p>Является ли конкатенация чисел m и n (<%= m %><%= n %>) простым числом: <%= isConcatenationPrime %></p>
+    <hr/>
+    <p>Разложение на простые множители:</p>
+    <p><%= m %> = <%= factorsOfM %></p>
+    <p><%= n %> = <%= factorsOfN %></p>
+</div>
+</body>
+</html>

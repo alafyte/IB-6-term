@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab03 - НОД</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <ul class="nav justify-content-center mt-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="/gcd">НОД</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/primes">Простые числа</a>
+        </li>
+    </ul>
+    <h3 class="text-center mt-4">НОД</h3>
+    <p>Введите два или три числа</p>
+    <form class="w-25" id="gcd_form">
+        <div class="form-group">
+            <label for="number1">Число 1*</label>
+            <input type="number" name="a" class="form-control" required id="number1">
+        </div>
+        <div class="form-group">
+            <label for="number2">Число 2*</label>
+            <input type="number" name="b" class="form-control" required id="number2">
+        </div>
+        <div class="form-group">
+            <label for="number3">Число 3</label>
+            <input type="number" name="c" class="form-control" id="number3">
+        </div>
+        <button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+    <p id="gcdResult" class="mt-4"></p>
+</div>
+<script type="text/javascript">
+    let form = document.getElementById('gcd_form');
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const formData =  new FormData(form);
+        let jsonRequestData = {};
+
+        for (let [key, value] of formData) {
+            jsonRequestData[key] = value;
+        }
+
+        fetch('/gcd', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonRequestData)
+        }).then(async (res) => {
+            let paragraph = document.getElementById('gcdResult');
+            if (res.status === 200) {
+                let result = await res.json();
+                clearForm();
+                paragraph.innerHTML = result.result;
+            } else {
+                paragraph.innerHTML = "Произошла ошибка"
+            }
+        })
+    }
+
+    const clearForm = () => {
+        let number1 = document.getElementById('number1');
+        let number2 = document.getElementById('number2');
+        let number3 = document.getElementById('number3');
+
+        number1.innerHTML = "";
+        number2.innerHTML = "";
+        number3.innerHTML = "";
+    }
+</script>
+</body>
+</html>
