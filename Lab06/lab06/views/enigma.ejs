@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab06 - Энигма</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h3 class="text-center mt-4 mb-4">Энигма</h3>
+<h4 class="text-center mt-4 mb-4" id="rotors">Текущая позиция роторов (L-M-R): <%= rotors.L %>-<%= rotors.M%>-<%= rotors.R%></h4>
+<div>
+    <h5 class="text-center">Установите положение роторов (0-25)</h5>
+    <form class="w-25 mx-auto" id="rotors_form">
+        <div class="form-group">
+            <label for="rotorL">Ротор L</label>
+            <input type="number" max="25" min="0" name="rotorL" class="form-control" required id="rotorL">
+        </div>
+        <div class="form-group">
+            <label for="rotorM">Ротор M</label>
+            <input type="number" max="25" min="0" name="rotorM" class="form-control" required id="rotorM">
+        </div>
+        <div class="form-group">
+            <label for="rotorR">Ротор R</label>
+            <input type="number" max="25" min="0" name="rotorR" class="form-control" required id="rotorR">
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="block btn btn-primary">Установить</button>
+        </div>
+    </form>
+</div>
+<main>
+    <h5 class="text-center mt-4">Шифрование/расшифрование</h5>
+    <div class="container w-50 d-flex flex-row justify-content-between">
+        <div>
+            <p>Введите текст</p>
+            <form class="w-full" id="enc_form">
+                <div class="form-group">
+                    <label for="text">Оригинальное сообщение</label>
+                    <input type="text" name="enc_text" class="form-control" required id="text">
+                </div>
+                <button type="submit" class="btn btn-primary">Зашифровать</button>
+            </form>
+            <p id="encResult" class="mt-4"></p>
+        </div>
+        <div>
+            <p>Введите текст</p>
+            <form class="w-full" id="dec_form">
+                <div class="form-group">
+                    <label for="dec_text">Зашифрованное сообщение</label>
+                    <input type="text" name="dec_text" class="form-control" required id="dec_text">
+                </div>
+                <button type="submit" class="btn btn-primary">Расшифровать</button>
+            </form>
+            <p id="decResult" class="mt-4"></p>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+    let form = document.getElementById('enc_form');
+    let formDec = document.getElementById('dec_form');
+    let formRotors = document.getElementById('rotors_form');
+
+    formRotors.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(formRotors);
+        let jsonRequestData = {};
+
+        for (let [key, value] of formData) {
+            jsonRequestData[key] = value;
+        }
+
+        fetch('/set-rotors', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonRequestData)
+        }).then(async (res) => {
+            let paragraph = document.getElementById('rotors');
+            if (res.status === 200) {
+                let result = await res.json();
+                paragraph.innerHTML = `Текущая позиция роторов (L-M-R): ${result.L}-${result.M}-${result.R}`;
+            } else {
+                paragraph.innerHTML = "Произошла ошибка"
+            }
+        })
+    }
+
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        let jsonRequestData = {};
+
+        for (let [key, value] of formData) {
+            jsonRequestData[key] = value;
+        }
+
+        fetch('/encrypt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonRequestData)
+        }).then(async (res) => {
+            let paragraph = document.getElementById('encResult');
+            if (res.status === 200) {
+                let result = await res.json();
+                paragraph.innerHTML = result.result;
+            } else {
+                paragraph.innerHTML = "Произошла ошибка"
+            }
+        })
+    }
+
+    formDec.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(formDec);
+        let jsonRequestData = {};
+
+        for (let [key, value] of formData) {
+            jsonRequestData[key] = value;
+        }
+
+        console.log(jsonRequestData)
+
+        fetch('/decrypt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonRequestData)
+        }).then(async (res) => {
+            let paragraph = document.getElementById('decResult');
+            if (res.status === 200) {
+                let result = await res.json();
+                paragraph.innerHTML = result.result;
+            } else {
+                paragraph.innerHTML = "Произошла ошибка"
+            }
+        })
+    }
+</script>
+</body>
+</html>
