@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab08 - RC4</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<ul class="nav justify-content-center mt-4">
+    <li class="nav-item">
+        <a class="nav-link active" href="/lcg">Линейный конгруэнтный генератор</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/rc4">RC4</a>
+    </li>
+</ul>
+
+<div class="container w-25">
+    <h3 class="text-center mt-4 mb-4">RC4</h3>
+    <form class="w-full" id="rc4_form">
+        <div class="form-group">
+            <label for="text">Оригинальный текст</label>
+            <input type="text" name="text" class="form-control" required id="text">
+        </div>
+        <button type="submit" class="btn btn-primary">Зашифровать</button>
+    </form>
+    <p id="rc4Result" class="mt-4"></p>
+</div>
+<script type="text/javascript">
+    let form = document.getElementById('rc4_form');
+
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        let jsonRequestData = {};
+
+        for (let [key, value] of formData) {
+            jsonRequestData[key] = value;
+        }
+
+        fetch('/rc4', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonRequestData)
+        }).then(async (res) => {
+            let paragraph = document.getElementById('rc4Result');
+            if (res.status === 200) {
+                let result = await res.json();
+                paragraph.innerHTML = `Зашифрованный текст: ${result.result}<br/>Оригинальный текст: ${result.decrypted}<br/>Генерация ПСП: ${result.generationTime} мс`;
+            } else {
+                paragraph.innerHTML = "Произошла ошибка"
+            }
+        })
+    }
+
+</script>
+</body>
+</html>
