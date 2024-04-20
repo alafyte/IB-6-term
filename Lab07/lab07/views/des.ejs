@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab07 - DES</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h3 class="text-center mt-4 mb-4">DES</h3>
+<main>
+    <h5 class="text-center mt-4">Шифрование</h5>
+    <div class="container w-25">
+            <p>Введите текст</p>
+            <form class="w-full" id="enc_form">
+                <div class="form-group">
+                    <label for="text">Оригинальное сообщение</label>
+                    <input type="text" name="enc_text" class="form-control" required id="text">
+                </div>
+                <div class="form-group">
+                    <label for="key">Ключ</label>
+                    <input type="text" name="key" class="form-control" required id="key">
+                </div>
+                <button type="submit" class="btn btn-primary">Зашифровать</button>
+            </form>
+            <p id="encResult" class="mt-4"></p>
+    </div>
+</main>
+<script type="text/javascript">
+    let form = document.getElementById('enc_form');
+    let formDec = document.getElementById('dec_form');
+
+    form.onsubmit = async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(form);
+        let jsonRequestData = {};
+
+        for (let [key, value] of formData) {
+            jsonRequestData[key] = value;
+        }
+
+        fetch('/encrypt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(jsonRequestData)
+        }).then(async (res) => {
+            let paragraph = document.getElementById('encResult');
+            if (res.status === 200) {
+                let result = await res.json();
+                paragraph.innerHTML = `<p>${result.encrypted} (${result.encodingTime} мс) </p>
+<h5 class="text-center mt-4">Расширование</h5>
+<p>${result.decrypted} (${result.decodingTime} мс)</p>
+<h5 class="text-center mt-4">Лавинный эффект</h5>
+<p>Исходная строка с измененным битом: ${result.avalanche.stringChanged}</p>
+<p>${result.avalanche.avalancheEffect}%</p>`;
+            } else {
+                paragraph.innerHTML = "Произошла ошибка"
+            }
+        })
+    }
+</script>
+</body>
+</html>
