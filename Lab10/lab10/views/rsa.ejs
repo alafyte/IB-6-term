@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab10 - Ассиметричные шифры RSA и Эль-Гамаля</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <ul class="nav justify-content-center mt-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="/rsa">RSA</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/el-gamal">Эль-Гамаля</a>
+        </li>
+    </ul>
+    <h2 class="text-center mt-4">RSA</h2>
+    <h5 class="text-center mt-4">Оригинальное сообщение: <%= originalText %></h5>
+    <h5 class="text-center mt-4">Приватный ключ</h5>
+    <p><%= privateKey %></p>
+
+    <h5 class="text-center mt-4">Публичный ключ</h5>
+    <p><%= publicKey %></p>
+
+    <h5 class="text-center mt-4">Зашифрованное сообщение (<%= encryptionTime %>мс)</h5>
+    <p style="word-break: break-all; word-wrap: break-word;"><%= encryptedData %></p>
+
+    <h5 class="text-center mt-4">Расшифрованное сообщение (<%= decryptionTime %>мс)</h5>
+    <p><%= decryptedData %></p>
+</div>
+</body>
+</html>
