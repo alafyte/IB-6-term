@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <title>Lab13 - Эллиптические кривые</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <ul class="nav justify-content-center mt-4">
+        <li class="nav-item">
+            <a class="nav-link active" href="/points">Точки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/operations">Операции над точками</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/cipher">Шифрование/расшифрование</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/ds">ЭЦП</a>
+        </li>
+    </ul>
+
+    <h5 class="text-center mt-4">Шифрование</h5>
+    <h5 class="text-center mt-4">Оригинальное сообщение: <%= originalText %></h5>
+
+    <h5 class="text-center mt-4">Зашифрованное сообщение</h5>
+    <p class="text-center">
+        <% for (const c of encryptedText) { %>
+            { <b>C1:</b> <%= c.C1 %>, <b>C2:</b> <%= c.C2 %> }<br/>
+        <% } %>
+    </p>
+
+    <h5 class="text-center mt-4">Расшифрованное сообщение</h5>
+    <p class="text-center"><%= decryptedText %></p>
+</div>
+</body>
+</html>
